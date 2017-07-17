@@ -1,0 +1,24 @@
+version: '2'
+services:
+  muninn:
+    command: /bin/sh -c "npm i && npm run make && npm run startDev"
+    image: node:8
+    user: '1000'
+    working_dir: /opt
+    volumes:
+      - .:/opt
+    environment:
+      TERM: dumb
+    networks:
+      - service
+      - rabbit
+      - redis
+
+networks:
+  service:
+  rabbit:
+    external:
+      name: rabbit
+  redis:
+    external:
+      name: redis

@@ -1,0 +1,10 @@
+{
+  "iris" : {
+    "url": "RABBIT_URI",
+    "exchange": "RABBIT_EXCHANGE",
+    "namespace": "IRIS_NAMESPACE"
+  },
+  "redis": {
+    "gods": "REDIS_GODS_URI"
+  }
+}

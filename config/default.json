@@ -1,0 +1,10 @@
+{
+  "iris": {
+    "namespace": "muninn",
+    "uri": "amqp://guest:guest@rabbit"
+  },
+  "redis": {
+    "gods":"redis://redis:6379/0"
+  }
+
+}
