@@ -33,26 +33,3 @@ fs.readFile(path, (err: Error, data: Buffer) => {
      redisGods.zadd('gods', 0, god.toString());
   });
 });
-
-
-function promisify<T>(f: (...arg: any[]) => T, context?: any) {
-  return (...args: any[]) => {
-    return new Promise((resolve, reject) => {
-      args.push((err: Error, result: T) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-
-      f.apply(context, args);
-    });
-  };
-}
-
-
-const pzrank = promisify(redisGods.zrank, redisGods);
-const pzrange = promisify(redisGods.zrange, redisGods);
-
-
