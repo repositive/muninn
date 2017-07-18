@@ -1,12 +1,7 @@
 import * as config from 'config';
-import promisify from '../utils/promises';
-import { get } from 'config';
 
 
-export default function autocomplete (redis: any) {
-  const pzrank = promisify(redis.zrank, redis);
-  const pzrange = promisify(redis.zrange, redis);
-
+export default function autocomplete ({pzrank, pzrange}: {pzrank:any, pzrange:any}) {
   return async function (payload: string) {
     const zset = 'gods';
     return pzrank(zset, payload)
