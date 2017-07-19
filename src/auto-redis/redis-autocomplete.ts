@@ -1,5 +1,3 @@
-import * as config from 'config';
-
 
 export default function autocomplete ({pzrank, pzrange, zset}: {pzrank:any, pzrange:any, zset:string }) {
   return async function (payload: string) {

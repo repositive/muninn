@@ -6,8 +6,8 @@ import autocomplete from './redis-autocomplete';
 
 test('Testing autocomplition by title service', (t: Test) => {
   async function _test() {
-    const pzrank = stub().returns(Promise.resolve());
-    const pzrange = stub().returns(Promise.resolve());
+    const pzrank = stub().returns(Promise.resolve(0));
+    const pzrange = stub().returns(Promise.resolve([]));
 
     t.equals(typeof autocomplete, 'function', 'Module exports a function');
     const zset = 'gods';
@@ -15,9 +15,14 @@ test('Testing autocomplition by title service', (t: Test) => {
 
     t.equals(typeof _autocomplete, 'function', 'autocomplete returns a function');
 
-    t.deepEquals(_autocomplete(''), {}, 'Result');
+    const autoResult = _autocomplete('').catch(err => {
+      t.notOk(true, 'autocomplete blow up when it should not');
+      console.error(err);
+    });
 
-    }
+    t.ok(autoResult instanceof Promise, 'autocomplete returns a promise');
+
+  }
 
   _test()
     .then(() => t.end())

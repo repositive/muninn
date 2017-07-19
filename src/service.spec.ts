@@ -11,12 +11,14 @@ test('Testing basic service', (t: Test) => {
     const _irisSetup = stub().returns(Promise.resolve(_iris));
     const irisConfig = {url: 'a', exchange: 'b', namespace: 'c'};
     const _config = { get: stub().returns(irisConfig) } as any;
-    const _redis = stub();
+    const autocomplete = stub();
+    const updateIndex = stub();
+    const _redisBackend = stub().returns(Promise.resolve({autocomplete, updateIndex}));
     const _promisify = stub().returns(Promise.resolve());
 
     t.equals(typeof init, 'function', 'Service exports a function');
 
-    const setupResult = init({_pack, _irisSetup});
+    const setupResult = init({_pack, _irisSetup, _redisBackend});
 
     t.ok(setupResult instanceof Promise, 'Service setup must return a promise');
 
