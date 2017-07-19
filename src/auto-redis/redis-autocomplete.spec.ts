@@ -2,7 +2,7 @@ import * as test from 'tape';
 import { Test } from 'tape';
 import { stub } from 'sinon';
 import init from '../service';
-import autocomplete from './title-autocomplete';
+import autocomplete from './redis-autocomplete';
 
 test('Testing autocomplition by title service', (t: Test) => {
   async function _test() {
@@ -10,7 +10,8 @@ test('Testing autocomplition by title service', (t: Test) => {
     const pzrange = stub().returns(Promise.resolve());
 
     t.equals(typeof autocomplete, 'function', 'Module exports a function');
-    const _autocomplete = autocomplete({pzrank, pzrange});
+    const zset = 'gods';
+    const _autocomplete = autocomplete({pzrank, pzrange, zset});
 
     t.equals(typeof _autocomplete, 'function', 'autocomplete returns a function');
 
