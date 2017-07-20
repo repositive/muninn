@@ -5,6 +5,6 @@
     "namespace": "IRIS_NAMESPACE"
   },
   "redis": {
-    "gods": "REDIS_GODS_URI"
+    "uri": "REDIS_URI"
   }
 }
