@@ -1,10 +1,9 @@
 import irisSetup from '@repositive/iris';
 import {LibOpts} from '@repositive/iris';
 import * as config from 'config';
-import redisBackend from './auto-redis';
-import updateIndex from './auto-redis/create-index';
-import { compose, filterPayload } from './utils/compose';
 import {all} from 'bluebird';
+import { compose, filterPayload } from './utils/compose';
+import redisBackend from './auto-redis';
 
 const pack = require('../package.json');
 

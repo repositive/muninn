@@ -2,7 +2,7 @@ import * as test from 'tape';
 import { Test } from 'tape';
 import { stub } from 'sinon';
 import init from '../service';
-import autocomplete from './redis-autocomplete';
+import autocomplete from './autocomplete';
 
 test('Testing autocomplition by title service', (t: Test) => {
   async function _test() {

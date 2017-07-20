@@ -1,8 +1,3 @@
-import * as fs from 'fs';
-import * as config from 'config';
-import { createClient as redisClient } from 'redis';
-import { get } from 'config';
-import promisify from '../utils/promises';
 import {all} from 'bluebird';
 
 function prefix(str: string, acc: string[] = []): string[] {
