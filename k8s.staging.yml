@@ -38,7 +38,7 @@ spec:
                 secretKeyRef:
                   name: rabbit-urls-staging
                   key: rabbit
-             - name: REDIS_URI
+            - name: REDIS_URI
               value: "redis://redis:6379/4"
           ports:
             - name: muninn
