@@ -38,12 +38,9 @@ spec:
                 secretKeyRef:
                   name: rabbit-urls-staging
                   key: rabbit
-            - name: DB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: db-urls-staging
-                  key: muninn
-          ports:
+             - name: REDIS_GODS_URI
+              value: "redis://redis:6379/0"
+                  ports:
             - name: muninn
               containerPort: 3000
           resources:
