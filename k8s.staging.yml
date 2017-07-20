@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: muninn
-          image: registry.repositive.io:5000/muninn:4
+          image: registry.repositive.io:5000/muninn:${TAG}
           env:
             - name: BROADCAST_URI
               valueFrom:
