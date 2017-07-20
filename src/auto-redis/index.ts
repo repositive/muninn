@@ -16,6 +16,7 @@ export default async function setupRedisAutocomplete({
   const pzrange = _promisify(redisClient.zrange, {context: redisClient});
   const pzadd = _promisify(redisClient.zadd, {context: redisClient});
 
+
   return {
     name: 'redis',
     autocomplete: (zset: string) => redisAutocomplete({pzrank, pzrange, zset}),
