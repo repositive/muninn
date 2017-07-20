@@ -41,9 +41,9 @@ export default async function init({
   ];
 
   iris.register<any, any>({pattern: 'event.dataset.create', async handler({payload}) {
-    if(payload) {
+    if(payload && payload.properties && payload.properties.attributes) {
       return all(datasetSet.map( (zset) => {
-          const property = payload.properties[zset];
+          const property = payload.properties.attributes[zset];
           if( property ) {
             return all(property.map((value: string) => {
               return backend.updateIndex({zset, value});
