@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: muninn
+  labels:
+    app: muninn
+spec:
+  selector:
+    app: muninn
+  ports:
+    - name: muninn
+      port: 3000
+      targetPort: muninn
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: muninn
+  labels:
+    app: muninn
+    env: staging
+    criticality: med
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: muninn
+        env: staging
+        criticality: med
+    spec:
+      containers:
+        - name: muninn
+          image: registry.repositive.io:5000/muninn:${TAG}
+          env:
+            - name: BROADCAST_URI
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-urls-staging
+                  key: rabbit
+             - name: REDIS_URI
+              value: "redis://redis:6379/4"
+          ports:
+            - name: muninn
+              containerPort: 3000
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 50m
+      imagePullSecrets:
+        - name: regsecret

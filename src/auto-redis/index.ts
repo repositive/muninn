@@ -11,10 +11,11 @@ export default async function setupRedisAutocomplete({
   _promisify?: typeof promisify,
   _createClient?: typeof createClient
 }) {
-  const redisGods = _createClient(<any>{url: config.get<string>('redis.gods') });
-  const pzrank = _promisify(redisGods.zrank, {context: redisGods});
-  const pzrange = _promisify(redisGods.zrange, {context: redisGods});
-  const pzadd = _promisify(redisGods.zadd, {context: redisGods});
+  const redisClient = _createClient(<any>{url: config.get<string>('redis.uri') });
+  const pzrank = _promisify(redisClient.zrank, {context: redisClient});
+  const pzrange = _promisify(redisClient.zrange, {context: redisClient});
+  const pzadd = _promisify(redisClient.zadd, {context: redisClient});
+
 
   return {
     name: 'redis',
