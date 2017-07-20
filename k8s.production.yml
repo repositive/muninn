@@ -33,7 +33,7 @@ spec:
         - name: muninn
           image: registry.repositive.io:5000/muninn:${TAG}
           env:
-            - name: BROADCAST_URI
+            - name: RABBIT_URI
               valueFrom:
                 secretKeyRef:
                   name: rabbit-urls-production
