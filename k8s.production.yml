@@ -40,7 +40,7 @@ spec:
                   key: rabbit
             - name: REDIS_GODS_URI
               value: "redis://redis:6379/0"
-         ports:
+          ports:
             - name: muninn
               containerPort: 3000
           resources:
