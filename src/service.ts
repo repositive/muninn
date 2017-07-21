@@ -44,6 +44,19 @@ export default async function init({
     });
   }));
 
+  iris.register({
+    pattern: 'action.autocomplete',
+    async handler({payload}) {
+      const results = await all(datasetProperties.map( async (property) => {
+        const aut = backend.autocomplete(`${property}`);
+        if (payload) {
+          const matches = await aut(payload.toString());
+          return {[property]: matches};
+        }
+      }));
+      return Object.assign.apply({}, results);
+    }
+  });
 
   iris.register<any, any>({pattern: 'event.dataset.create', async handler({payload}) {
     if(payload && payload.properties && payload.properties.attributes) {
