@@ -37,12 +37,12 @@ export default async function init({
     'technology'
   ];
 
-  datasetProperties.map( (propertie) => {
-    iris.register({
+  await all(datasetProperties.map( (propertie) => {
+    return iris.register({
       pattern: `action.${propertie}.autocomplete`,
       handler: compose( filterPayload, backend.autocomplete(`${propertie}`))
     });
-  });
+  }));
 
 
   iris.register<any, any>({pattern: 'event.dataset.create', async handler({payload}) {
