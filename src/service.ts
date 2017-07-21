@@ -30,19 +30,24 @@ export default async function init({
     handler: compose( filterPayload, backend.autocomplete('gods'))
   });
 
-  iris.register({
-    pattern: 'action.disease.autocomplete',
-    handler: compose( filterPayload, backend.autocomplete('disease'))
-  });
-
-  const datasetSet = [
+  const datasetProperties = [
     'disease',
-    'assay'
+    'assay',
+    'tissue',
+    'technology'
   ];
+
+  await all(datasetProperties.map( (propertie) => {
+    return iris.register({
+      pattern: `action.${propertie}.autocomplete`,
+      handler: compose( filterPayload, backend.autocomplete(`${propertie}`))
+    });
+  }));
+
 
   iris.register<any, any>({pattern: 'event.dataset.create', async handler({payload}) {
     if(payload && payload.properties && payload.properties.attributes) {
-      return all(datasetSet.map( (zset) => {
+      return all(datasetProperties.map( (zset) => {
           const property = payload.properties.attributes[zset];
           if( property ) {
             return all(property.map((value: string) => {
