@@ -36,13 +36,13 @@ test('Testing basic service', (t: Test) => {
     let addCall = _iris.register.getCall(0);
     const statusImp = addCall.args[0].handler;
     t.equal(addCall.args[0].pattern, 'status.muninn', 'The service exposes a status handle');
-    addCall = _iris.register.getCall(2);
-    t.equal(addCall.args[0].pattern, 'action.disease.autocomplete', 'The service exposes a disease handle');
     addCall = _iris.register.getCall(3);
-    t.equal(addCall.args[0].pattern, 'action.assay.autocomplete', 'The service exposes a assay handle');
+    t.equal(addCall.args[0].pattern, 'action.disease.autocomplete', 'The service exposes a disease handle');
     addCall = _iris.register.getCall(4);
-    t.equal(addCall.args[0].pattern, 'action.tissue.autocomplete', 'The service exposes a tissue handle');
+    t.equal(addCall.args[0].pattern, 'action.assay.autocomplete', 'The service exposes a assay handle');
     addCall = _iris.register.getCall(5);
+    t.equal(addCall.args[0].pattern, 'action.tissue.autocomplete', 'The service exposes a tissue handle');
+    addCall = _iris.register.getCall(6);
     t.equal(addCall.args[0].pattern, 'action.technology.autocomplete', 'The service exposes a technology handle');
 
     const impResultP = statusImp({});

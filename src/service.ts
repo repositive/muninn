@@ -25,17 +25,26 @@ export default async function init({
     return {version: _pack.version};
   }});
 
-  iris.register({
-    pattern: 'action.god.autocomplete',
-    handler: compose( filterPayload, backend.autocomplete('gods'))
-  });
-
   const datasetProperties = [
     'disease',
     'assay',
     'tissue',
     'technology'
   ];
+
+  iris.register<any, any>({
+    pattern: 'status.muninn.v2',
+    async handler({payload}) {
+      const setStatus = await backend.statusZsets();
+      return {version: _pack.version, keys: setStatus};
+    }
+    //handler: backend.statusZsets
+  });
+
+  iris.register({
+    pattern: 'action.god.autocomplete',
+    handler: compose( filterPayload, backend.autocomplete('gods'))
+  });
 
   await all(datasetProperties.map( (propertie) => {
     return iris.register({
