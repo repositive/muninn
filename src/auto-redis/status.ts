@@ -15,7 +15,6 @@ export default function statusZsets({
       const filtered = words.filter( (word:string) =>
         word.charAt(word.length -1) === '*'
       );
-      console.log(filtered);
       return {[zset]: {n_words: filtered.length,sizeOfset: length}};
     }));
     return Object.assign.apply({}, res);
