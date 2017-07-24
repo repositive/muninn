@@ -17,13 +17,6 @@ test('Testing Status Handler', (t: Test) => {
     t.equals(typeof _setupRedis, 'object', 'Module expose a function');
 
     const redis = await _setupRedis;
-    /*
-    const autocomplete = stub();
-    const updateIndex = stub();
-    const statusZsets = stub();
-    const name = stub();
-    t.deepEquals( await _setupRedis,{'name': 'redis', 'autocomplete':autocomplete,'updateIndex':updateIndex, 'statusZsets': statusZsets},'Setup return the correct object');
-    */
 
     const zset = 'test';
     const _autocomplete = redis.autocomplete(zset);
