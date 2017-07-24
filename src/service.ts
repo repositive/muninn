@@ -21,14 +21,6 @@ export default async function init({
   const irisOpts = _config.get<LibOpts<any>>('iris');
   const iris = await _irisSetup(irisOpts);
   const backend = await _redisBackend({});
-  iris.register({pattern: 'status.muninn', async handler({payload}) {
-    return {version: _pack.version};
-  }});
-
-  iris.register({
-    pattern: 'action.god.autocomplete',
-    handler: compose( filterPayload, backend.autocomplete('gods'))
-  });
 
   const datasetProperties = [
     'disease',
@@ -37,6 +29,19 @@ export default async function init({
     'technology'
   ];
 
+  iris.register<any, any>({
+    pattern: 'status.muninn',
+    async handler({payload}) {
+      const setStatus = await backend.statusZsets();
+      return {version: _pack.version, keys: setStatus};
+    }
+  });
+
+  iris.register({
+    pattern: 'action.god.autocomplete',
+    handler: compose( filterPayload, backend.autocomplete('gods'))
+  });
+
   await all(datasetProperties.map( (propertie) => {
     return iris.register({
       pattern: `action.${propertie}.autocomplete`,
@@ -44,6 +49,19 @@ export default async function init({
     });
   }));
 
+  iris.register({
+    pattern: 'action.autocomplete',
+    async handler({payload}) {
+      const results = await all(datasetProperties.map( async (property) => {
+        const aut = backend.autocomplete(`${property}`);
+        if (payload) {
+          const matches = await aut(payload.toString());
+          return {[property]: matches};
+        }
+      }));
+      return Object.assign.apply({}, results);
+    }
+  });
 
   iris.register<any, any>({pattern: 'event.dataset.create', async handler({payload}) {
     if(payload && payload.properties && payload.properties.attributes) {

@@ -33,7 +33,7 @@
     "service"
   ],
   "dependencies": {
-    "@repositive/iris": "0.4.0",
+    "@repositive/iris": "0.4.1",
     "amqplib": "0.5.1",
     "bluebird": "3.5.0",
     "config": "1.26.1"
