@@ -21,14 +21,6 @@ export default async function init({
   const irisOpts = _config.get<LibOpts<any>>('iris');
   const iris = await _irisSetup(irisOpts);
   const backend = await _redisBackend({});
-  iris.register({pattern: 'status.muninn', async handler({payload}) {
-    return {version: _pack.version};
-  }});
-
-  iris.register({
-    pattern: 'action.god.autocomplete',
-    handler: compose( filterPayload, backend.autocomplete('gods'))
-  });
 
   const datasetProperties = [
     'disease',
@@ -36,6 +28,19 @@ export default async function init({
     'tissue',
     'technology'
   ];
+
+  iris.register<any, any>({
+    pattern: 'status.muninn',
+    async handler({payload}) {
+      const setStatus = await backend.statusZsets();
+      return {version: _pack.version, keys: setStatus};
+    }
+  });
+
+  iris.register({
+    pattern: 'action.god.autocomplete',
+    handler: compose( filterPayload, backend.autocomplete('gods'))
+  });
 
   await all(datasetProperties.map( (propertie) => {
     return iris.register({

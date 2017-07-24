@@ -48,14 +48,6 @@ test('Testing basic service', (t: Test) => {
     const impResultP = statusImp({});
     t.ok(impResultP instanceof Promise, 'The implementation of status returns a promise');
 
-    await impResultP
-      .then((result: any) => {
-        t.deepEqual(_pack, result, 'The implementation returns what we expect');
-        t.ok(true, 'Implementation does not blow up');
-      })
-      .catch(() => {
-        t.notOk(true, 'Implementation should not blow up');
-      });
   }
 
   _test()
