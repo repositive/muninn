@@ -1,0 +1,21 @@
+{
+    "keys": {
+        "assay": {
+            "n_words": 138,
+            "sizeOfset": 1677
+        },
+        "disease": {
+            "n_words": 479,
+            "sizeOfset": 8304
+        },
+        "technology": {
+            "n_words": 826,
+            "sizeOfset": 27223
+        },
+        "tissue": {
+            "n_words": 764,
+            "sizeOfset": 10720
+        }
+    },
+    "version": "0.0.1"
+}
