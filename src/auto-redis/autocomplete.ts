@@ -2,7 +2,7 @@
 export default function autocomplete ({pzrank, pzrange, zset}: {pzrank:any, pzrange:any, zset:string }) {
   return async function (payload: any, inc = 128) {
     const prefix = payload.prefix;
-    const limit = (payload.limit) ? payload.limit:-1;
+    const limit = payload.limit;
     const rank = await pzrank(zset, prefix);
     async function internal(start: number, end: number, acc: string[] = []): Promise<string[]> {
       if(start) {
