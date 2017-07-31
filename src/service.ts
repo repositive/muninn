@@ -51,8 +51,7 @@ export default async function init({
 
   iris.register({
     pattern: 'action.autocomplete',
-    async handler(payload) {
-      console.log(payload);
+    async handler({payload}) {
       const results = await all(datasetProperties.map( async (property) => {
         const aut = backend.autocomplete(`${property}`);
         if (payload) {
