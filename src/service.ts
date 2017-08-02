@@ -73,7 +73,6 @@ export default async function init({
           const property = payload.properties.attributes[zset];
           if( property ) {
             return all(property.map((value: string) => {
-              console.log(`${value} inserted as ${zset}`);
               return backend.updateIndex({zset, value});
             }));
           }
