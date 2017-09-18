@@ -55,7 +55,7 @@ export default async function init({
       const results = await all(datasetProperties.map( async (property) => {
         const aut = backend.autocomplete(`${property}`);
         if (payload) {
-          const matches = await aut(payload.toString());
+          const matches = await aut(payload);
           return {[property]: matches};
         }
       }));

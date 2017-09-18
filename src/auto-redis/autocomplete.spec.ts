@@ -29,8 +29,8 @@ test('Testing autocompletion handler', (t: Test) => {
                           .onSecondCall().returns(Promise.resolve([ 'L', 'Lo', 'Lok', 'Lok*']));
     const _autocompletePage = autocomplete({pzrank: pzrankIn, pzrange: pzrangePage, zset});
 
-    const iterationRes = await _autocompletePage('T', 5).catch(err => {
-      t.notOk(true, 'Autocomplete blow up when it should not');
+    const iterationRes = await _autocompletePage({'prefix':'T'}, 5).catch(err => {
+      t.notOk(true, 'Paginated Autocomplete blow up when it should not');
       console.error(err);
     });
 
